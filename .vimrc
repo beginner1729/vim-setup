@@ -16,20 +16,64 @@ set hlsearch
 set listchars=tab:>-,trail:-
 set foldmethod=syntax
 set foldmethod=indent
+set hidden
 set tags=./tags,tags;$HOME
-let mapleader = ","
+set shortmess+=IFWOA
+" Cscope settings
+set cscopeprg=  /opt/homebrew/bin/cscope "Or the path to your cscope executable
+set cscopeverbose  " Enable verbose messages (for debugging)
+
+" Add cscope database automatically if it exists
+if filereadable("cscope.out")
+  cs add cscope.out
+endif
+
+
+let mapleader = ' '
+let maplocalleader = ' '
 
 let g:coc_global_extensions = ['coc-json', 'coc-pyright'] 
 
 color wombat256mod
 
+" Space tn for next and tp for previous tab
+map <Leader>tp <esc>:tabprevious<CR>
+map <Leader>tn <esc>:tabnext<CR>
+map <Leader>to <esc>:tabnew<CR>
+map <Leader>tx <esc>:tabclose<CR>
 
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
 
+
+" Buffer remaps
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <leader>x :bdelete!<CR>
+nnoremap <leader>b :enew<CR>
+
+
+" Search tag of the cursorword
+nnoremap <Leader>ts :execute 'tag ' . expand('<cword>')<CR>
+
+" Split remaps
+nnoremap <leader>v <C-w>v
+nnoremap <leader>h <C-w>s
+nnoremap <leader>se <C-w>=
+nnoremap <leader>xs :close<CR>
+" Press jk fast to exit insert mode
+inoremap jk <Esc>
+inoremap kj <Esc>
+vnoremap p "_dP
+vnoremap < <gv
+vnoremap > >gv
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-nmap OO O<Esc>j
+nmap OO O<Esc>
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
+" Search faster
+nnoremap <Leader>s *
+
+
 
 " List your plugins here
 
