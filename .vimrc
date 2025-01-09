@@ -20,7 +20,6 @@ set hidden
 set tags=./tags,tags;$HOME
 set shortmess+=IFWOA
 " Cscope settings
-set cscopeprg=  /opt/homebrew/bin/cscope "Or the path to your cscope executable
 set cscopeverbose  " Enable verbose messages (for debugging)
 
 " Add cscope database automatically if it exists
@@ -28,9 +27,12 @@ if filereadable("cscope.out")
   cs add cscope.out
 endif
 
+"enable syntax
+syntax on
+
 
 let mapleader = ' '
-let maplocalleader = ' '
+let maplocalleader = ','
 
 let g:coc_global_extensions = ['coc-json', 'coc-pyright'] 
 
@@ -42,6 +44,11 @@ map <Leader>tn <esc>:tabnext<CR>
 map <Leader>to <esc>:tabnew<CR>
 map <Leader>tx <esc>:tabclose<CR>
 
+" fuzzy search remap
+nnoremap <Leader>fs :Files<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>ff :execute 'Rg ' . expand('<cword>')<CR>
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 
 " Buffer remaps
@@ -50,6 +57,8 @@ nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>x :bdelete!<CR>
 nnoremap <leader>b :enew<CR>
 
+nnoremap <Up> :set guifont+=h2<CR>
+nnoremap <Down> :set guifont-=h2<CR>
 
 " Search tag of the cursorword
 nnoremap <Leader>ts :execute 'tag ' . expand('<cword>')<CR>
@@ -57,11 +66,22 @@ nnoremap <Leader>ts :execute 'tag ' . expand('<cword>')<CR>
 " Split remaps
 nnoremap <leader>v <C-w>v
 nnoremap <leader>h <C-w>s
+nnoremap <LocalLeader>m :wincmd l<CR>
+nnoremap <LocalLeader>n :wincmd h<CR>
+nnoremap <LocalLeader>j :wincmd j<CR>
+nnoremap <LocalLeader>k :wincmd k<CR>
+nnoremap <LocalLeader>w <C-w>w
+nnoremap <Leader>c :
+
+set cursorline
+highlight CursorLine cterm=bold,underline guifg=Black guibg=LightGray
+
 nnoremap <leader>se <C-w>=
 nnoremap <leader>xs :close<CR>
 " Press jk fast to exit insert mode
 inoremap jk <Esc>
 inoremap kj <Esc>
+
 vnoremap p "_dP
 vnoremap < <gv
 vnoremap > >gv
@@ -70,10 +90,11 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellesca
 nmap OO O<Esc>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
-" Search faster
-nnoremap <Leader>s *
+" Save faster
+nnoremap <Leader>ss :w<CR>
 
-
+" mapping end of line to caps lock
+nnoremap <CapsLock> $
 
 " List your plugins here
 
@@ -97,10 +118,10 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'PhilRunninger/nerdtree-visual-selection'
-
-
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 
 let g:SimpylFold_docstring_preview = 1  " Enable docstring previews in folds
-let g:ifold_mode = 2  " Control how multi-line signatures are folded
+l
