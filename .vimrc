@@ -124,4 +124,3 @@ call plug#end()
 
 
 let g:SimpylFold_docstring_preview = 1  " Enable docstring previews in folds
-l
