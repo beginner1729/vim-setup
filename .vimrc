@@ -73,6 +73,10 @@ nnoremap <LocalLeader>k :wincmd k<CR>
 nnoremap <LocalLeader>w <C-w>w
 nnoremap <Leader>c :
 
+
+" Toogle hint in python
+nnoremap <LocalLeader>h :CocCommand document.toggleInlayHint<CR>
+
 set cursorline
 highlight CursorLine cterm=bold,underline guifg=Black guibg=LightGray
 
@@ -95,6 +99,9 @@ nnoremap <Leader>ss :w<CR>
 
 " mapping end of line to caps lock
 nnoremap <CapsLock> $
+
+
+inoremap <expr> <CR> pumvisible()? "\<C-y>": "\<CR>"
 
 " List your plugins here
 
@@ -124,3 +131,7 @@ call plug#end()
 
 
 let g:SimpylFold_docstring_preview = 1  " Enable docstring previews in folds
+let g:ifold_mode = 2  " Control how multi-line signatures are folded
+
+let g:coc_disable_diagnostics = 1
+autocmd FileType python let b:coc_diagnostic_disable = ['type']
