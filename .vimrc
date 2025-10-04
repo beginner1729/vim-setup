@@ -14,11 +14,12 @@ set colorcolumn=80
 set tw=79
 set hlsearch
 set listchars=tab:>-,trail:-
-set foldmethod=syntax
 set foldmethod=indent
 set hidden
 set tags=./tags,tags;$HOME
 set shortmess+=IFWOA
+set spell
+set hidden
 " Cscope settings
 set cscopeverbose  " Enable verbose messages (for debugging)
 
@@ -54,13 +55,16 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " Buffer remaps
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-nnoremap <leader>x :bdelete!<CR>
+nnoremap <leader>x ::bnext<bar>bdelete#<CR>
 nnoremap <leader>b :enew<CR>
 
-nnoremap <Up> :set guifont+=h2<CR>
-nnoremap <Down> :set guifont-=h2<CR>
+" navigation in insert mode
+inoremap <D-j> <Down>
+inoremap <Leader>k <Up>
+inoremap <Leader>h <Left>
+inoremap <Leader>l <Right>
 
-" Search tag of the cursorword
+" Search tag of the cursor word
 nnoremap <Leader>ts :execute 'tag ' . expand('<cword>')<CR>
 
 " Split remaps
@@ -135,3 +139,4 @@ let g:ifold_mode = 2  " Control how multi-line signatures are folded
 
 let g:coc_disable_diagnostics = 1
 autocmd FileType python let b:coc_diagnostic_disable = ['type']
+
