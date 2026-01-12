@@ -51,31 +51,43 @@ nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>ff :execute 'Rg ' . expand('<cword>')<CR>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
+" Wrap the current word in backticks
+nnoremap <Leader>` :let @w=expand('<cWORD>')<cr>ciW`<C-r>w`<esc>
+
+" Wrap the current word in double quotes
+nnoremap <Leader>" :let @w=expand('<cWORD>')<cr>ciW"<C-r>w"<esc>
+" Wrap in Square Brackets []
+nnoremap <Leader>[ :let @w=expand('<cWORD>')<cr>ciW[<C-r>w]<esc>
+
+" Wrap in Curly Braces {}
+nnoremap <Leader>{ :let @w=expand('<cWORD>')<cr>ciW{<C-r>w}<esc>
+
+" Wrap in Parentheses ()
+nnoremap <Leader>( :let @w=expand('<cWORD>')<cr>ciW(<C-r>w)<esc>
+
 
 " Buffer remaps
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-nnoremap <leader>x ::bnext<bar>bdelete#<CR>
-nnoremap <leader>b :enew<CR>
+nnoremap <Leader>x ::bnext<bar>bdelete#<CR>
+nnoremap <Leader>b :enew<CR>
 
 " navigation in insert mode
-inoremap <D-j> <Down>
-inoremap <Leader>k <Up>
-inoremap <Leader>h <Left>
-inoremap <Leader>l <Right>
-
+"
+"
 " Search tag of the cursor word
 nnoremap <Leader>ts :execute 'tag ' . expand('<cword>')<CR>
 
 " Split remaps
-nnoremap <leader>v <C-w>v
-nnoremap <leader>h <C-w>s
+nnoremap <Leader>v <C-w>v
+nnoremap <Leader>h <C-w>s
 nnoremap <LocalLeader>m :wincmd l<CR>
 nnoremap <LocalLeader>n :wincmd h<CR>
 nnoremap <LocalLeader>j :wincmd j<CR>
 nnoremap <LocalLeader>k :wincmd k<CR>
 nnoremap <LocalLeader>w <C-w>w
 nnoremap <Leader>c :
+nnoremap <Leader>ss :w<CR>
 
 
 " Toogle hint in python
@@ -84,13 +96,13 @@ nnoremap <LocalLeader>h :CocCommand document.toggleInlayHint<CR>
 set cursorline
 highlight CursorLine cterm=bold,underline guifg=Black guibg=LightGray
 
-nnoremap <leader>se <C-w>=
-nnoremap <leader>xs :close<CR>
+nnoremap <Leader>se <C-w>=
+nnoremap <Leader>xs :close<CR>
 " Press jk fast to exit insert mode
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-vnoremap p "_dP
+nnoremap <Leader>p :let @1=@2<CR>"1p
 vnoremap < <gv
 vnoremap > >gv
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
@@ -98,16 +110,23 @@ autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellesca
 nmap OO O<Esc>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
-" Save faster
-nnoremap <Leader>ss :w<CR>
+" funny font
 
+set guifont=Comic\ Sans\ MS:h13
+
+nnoremap ∆ :m+<CR>==
+" Move current line up (Option + k)
+nnoremap ˚ :m-2<CR>==
+" Move selected block down
+vnoremap ∆ :m '>+1<CR>gv=gv
+" Move selected block up
+vnoremap ˚ :m '<-2<CR>gv=gv 
 " mapping end of line to caps lock
-nnoremap <CapsLock> $
 
+"Quoting words with in quotes or tildas
+nnoremap <C-q> bi`<Esc>ea`<Esc>
 
-inoremap <expr> <CR> pumvisible()? "\<C-y>": "\<CR>"
-
-" List your plugins here
+"List your plugins here
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
